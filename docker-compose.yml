@@ -1,0 +1,45 @@
+services:
+  eventmanagementapplication.api:
+    image: ${DOCKER_REGISTRY-}eventmanagementapplicationapi
+    build:
+      context: .
+      dockerfile: EventManagementApplication.API/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
+
+  eventmanagementapplication.postgres:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: eventmanagementapplication
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  eventmanagementapplication.postgres.ui:
+    image: dpage/pgadmin4:9.9.0
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@mail.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    ports:
+      - 8080:80
+    depends_on:
+      - eventmanagementapplication.postgres
+
+  eventmanagementapplication.ui:
+    build:
+      context: .
+      dockerfile: event-management-application-client/Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./event-management-application-client:/app
+      - /app/node_modules
+    depends_on:
+      - eventmanagementapplication.api
+
+volumes:
+  postgres_data:
