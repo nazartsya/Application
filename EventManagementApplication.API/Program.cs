@@ -1,13 +1,11 @@
+using EventManagementApplication.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+var app = builder
+    .ConfigureServices()
+    .ConfigurePipeline();
 
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+await app.ResetDatabaseAsync();
 
 app.Run();
