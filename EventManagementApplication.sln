@@ -11,6 +11,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManagementSystem.Domain", "EventManagementSystem.Domain\EventManagementSystem.Domain.csproj", "{BF632F43-F319-427B-8719-0AE432B8E8CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManagementSystem.Application", "EventManagementSystem.Application\EventManagementSystem.Application.csproj", "{47CB6946-1F06-4D69-8522-28C3452CD333}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{BF632F43-F319-427B-8719-0AE432B8E8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF632F43-F319-427B-8719-0AE432B8E8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF632F43-F319-427B-8719-0AE432B8E8CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47CB6946-1F06-4D69-8522-28C3452CD333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47CB6946-1F06-4D69-8522-28C3452CD333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47CB6946-1F06-4D69-8522-28C3452CD333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47CB6946-1F06-4D69-8522-28C3452CD333}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{46540FC7-A34F-4743-BC1A-5A2D8CB9A887} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{BF632F43-F319-427B-8719-0AE432B8E8CC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{47CB6946-1F06-4D69-8522-28C3452CD333} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1D046B22-7F20-4AF4-A59C-5592DA42FF95}
