@@ -1,1 +1,33 @@
-<p>event-list works!</p>
+<h1>Discover Events</h1>
+@if (events$ | async; as events) {
+<div class="events">
+  @for (event of events; track event.id) {
+  <div class="event-card">
+    <h2 class="title">
+      <a [routerLink]="['/events', event.id]">{{ event.title }}</a>
+    </h2>
+    <p>
+      {{ event.description }}
+    </p>
+    <div class="event-info">
+      <span>{{ event.date | date : 'dd/MM/yyyy HH:mm' }}</span>
+      <span>{{ event.location }}</span>
+      @if (event.participantsCount === event.capacity) {
+      <span>Full</span>
+      } @else {
+      <span>
+        {{ event.participantsCount }} @if (event.capacity){ /{{ event.capacity }}} participants
+      </span>
+      }
+    </div>
+    <div class="event-buttons">
+      @if (!event.isJoined) {
+      <button (click)="join(event)">Join</button>
+      } @else {
+      <button (click)="leave(event)">Leave</button>
+      }
+    </div>
+  </div>
+  }
+</div>
+}
