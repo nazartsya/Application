@@ -1,0 +1,37 @@
+<div class="form-container">
+  <h2>Register</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <input formControlName="firstName" placeholder="First name" />
+      @if (isInvalid('firstName')) {
+      <div class="error">First name is required.</div>
+      }
+    </div>
+    <div>
+      <input formControlName="lastName" placeholder="Last name" />
+      @if (isInvalid('lastName')) {
+      <div class="error">Last name is required.</div>
+      }
+    </div>
+    <div>
+      <input formControlName="email" type="email" placeholder="Email" />
+      @if (isInvalid('email')) {
+      <div class="error">{{ emailErrorMessage }}</div>
+      }
+    </div>
+    <div>
+      <input formControlName="userName" placeholder="Username" />
+      @if (isInvalid('userName')) {
+      <div class="error">Username is required.</div>
+      }
+    </div>
+    <div>
+      <input formControlName="password" type="password" placeholder="Password" />
+      @if (isInvalid('password')) {
+      <div class="error">Password is required.</div>
+      }
+    </div>
+    <button type="submit" [disabled]="form.invalid">Register</button>
+  </form>
+  <p>Already have an account? <a routerLink="/login">Login</a></p>
+</div>
