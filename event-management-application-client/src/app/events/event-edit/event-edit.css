@@ -1,0 +1,118 @@
+.container {
+  background-color: #fff;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.datetime-container {
+  display: flex;
+  gap: 10px;
+}
+
+.datetime-container input {
+  flex: 1;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.visibility-radio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.visibility-radio:hover {
+  background-color: #f0f0f0;
+}
+
+.visibility-radio input[type='radio'] {
+  accent-color: #007bff;
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+}
+
+.visibility-radio label {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.buttons .cancel-btn {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.buttons .create-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 500px) {
+  .datetime-container {
+    flex-direction: column;
+  }
+}

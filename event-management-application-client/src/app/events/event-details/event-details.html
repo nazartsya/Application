@@ -1,0 +1,33 @@
+@if (event$ | async; as e) {
+<div class="event-detail-container">
+  <div class="event-card">
+    <h2>{{ e.title }}</h2>
+    <p class="description">{{ e.description }}</p>
+
+    <div class="info">
+      <p><span>Date:</span> {{ e.date | date : 'dd/MM/yyyy HH:mm' }}</p>
+      <p><span>Location:</span> {{ e.location }}</p>
+      @if (e.capacity) {
+      <p><span>Capacity:</span> {{ e.capacity }}</p>
+      }
+    </div>
+    <p>Participants ({{ e.participantsCount }}):</p>
+    <ul class="participants-list">
+      @for (p of e.participants; track p.userId){
+      <li>{{ p.firstName }} {{ p.lastName }}</li>
+      }
+    </ul>
+    <div class="actions">
+      <button class="back" routerLink="/events">Back</button>
+      @if (!e.isJoined) {
+      <button (click)="join(e)">Join</button>
+      } @else {
+      <button (click)="leave(e)">Leave</button>
+      } @if (e.createdBy === userId) {
+      <button class="edit" [routerLink]="['/events', e.id, 'edit']">Edit</button>
+      <button class="delete" (click)="onDelete(e.id)">Delete</button>
+      }
+    </div>
+  </div>
+</div>
+}

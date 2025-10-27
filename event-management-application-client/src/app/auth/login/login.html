@@ -1,0 +1,19 @@
+<div class="form-container">
+  <h2>Login</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <input formControlName="email" type="email" placeholder="Email" />
+      @if (isInvalid('email')) {
+      <div class="error">{{ emailErrorMessage }}</div>
+      }
+    </div>
+    <div>
+      <input formControlName="password" type="password" placeholder="Password" />
+      @if (isInvalid('password')) {
+      <div class="error">Password is required.</div>
+      }
+    </div>
+    <button type="submit" [disabled]="form.invalid">Login</button>
+  </form>
+  <p>Don't have an account? <a routerLink="/register">Register</a></p>
+</div>

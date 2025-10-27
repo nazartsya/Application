@@ -1,0 +1,13 @@
+<div class="page-container">
+  @if (events$ | async; as events) {
+  <section class="calendar-section">
+    @if (events.length > 0) {
+    <full-calendar [options]="calendarOptions"></full-calendar>
+    } @else {
+    <p class="no-events-message">
+      You are not part of any events yet. Explore public events and join.
+    </p>
+    }
+  </section>
+  }
+</div>

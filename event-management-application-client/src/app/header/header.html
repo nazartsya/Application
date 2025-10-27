@@ -1,0 +1,29 @@
+<header>
+  <div class="actions">
+    <button
+      class="btn-primary"
+      routerLink="/events"
+      [routerLinkActive]="['btn-outline']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      All Event
+    </button>
+    <button
+      class="btn-primary"
+      routerLink="/events/add"
+      [routerLinkActive]="['btn-outline']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Add Event
+    </button>
+    <button
+      class="btn-primary"
+      routerLink="/events/joined"
+      [routerLinkActive]="['btn-outline']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      My Events
+    </button>
+    <button class="btn-primary" (click)="logout()">Logout</button>
+  </div>
+</header>

@@ -1,0 +1,71 @@
+<div class="container" *ngIf="form">
+  <h1>Edit Event</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="title">Title *</label>
+    <input id="title" formControlName="title" placeholder="e.g., Tech Conference 2025" />
+    @if (isInvalid('title')) {
+    <div class="error">Title is required.</div>
+    }
+
+    <label for="description">Description *</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      placeholder="Describe what makes your event special..."
+    ></textarea>
+    @if (isInvalid('description', 'maxlength')) {
+    <div class="error">Description must not exceed 1500 characters.</div>
+    } @if (isInvalid('description', 'required')) {
+    <div class="error">Description is required.</div>
+    }
+
+    <div class="datetime-container">
+      <div>
+        <label for="date">Date *</label>
+        <input type="date" id="date" formControlName="date" />
+      </div>
+      <div>
+        <label for="time">Time *</label>
+        <input type="time" id="time" formControlName="time" />
+      </div>
+    </div>
+    @if (isInvalid('date') || isInvalid('time')) {
+    <div class="error">Date and Time are required.</div>
+    }
+
+    <label for="location">Location *</label>
+    <input id="location" formControlName="location" placeholder="e.g., Convention Center, SF" />
+    @if (isInvalid('location')) {
+    <div class="error">Location is required.</div>
+    }
+
+    <label for="capacity">Capacity (optional)</label>
+    <input
+      type="number"
+      id="capacity"
+      formControlName="capacity"
+      placeholder="Leave empty for unlimited"
+    />
+    @if (isInvalid('capacity', 'min')){
+    <div class="error">Capacity must be greater than 0.</div>
+    }
+
+    <div class="visibility-container">
+      <div class="label">Visibility</div>
+      <div class="visibility-radio">
+        <input type="radio" id="public" formControlName="visibility" value="public" />
+        <label for="public">Public - Anyone can see and join this event</label>
+      </div>
+      <div class="visibility-radio">
+        <input type="radio" id="private" formControlName="visibility" value="private" />
+        <label for="private">Private - Only invited people can see this event</label>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button type="button" routerLink="/events/{{ eventId }}" class="cancel-btn">Cancel</button>
+      <button type="submit" [disabled]="form.invalid" class="create-btn">Save Changes</button>
+    </div>
+  </form>
+</div>
