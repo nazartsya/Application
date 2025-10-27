@@ -16,6 +16,14 @@
     >
       Add Event
     </button>
+    <button
+      class="btn-primary"
+      routerLink="/events/joined"
+      [routerLinkActive]="['btn-outline']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      My Events
+    </button>
     <button class="btn-primary" (click)="logout()">Logout</button>
   </div>
 </header>

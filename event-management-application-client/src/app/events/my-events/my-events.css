@@ -1,0 +1,17 @@
+.calendar-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+full-calendar {
+  width: 100%;
+}
+
+.no-events-message {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  padding: 2rem;
+}

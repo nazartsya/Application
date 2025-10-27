@@ -8,6 +8,7 @@ import { EventDetails } from './events/event-details/event-details';
 import { EventAdd } from './events/event-add/event-add';
 import { EventEdit } from './events/event-edit/event-edit';
 import { EventOwnerGuard } from './events/event-owner.guard';
+import { MyEvents } from './events/my-events/my-events';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: EventList },
       { path: 'add', component: EventAdd },
+      { path: 'joined', component: MyEvents },
       { path: ':id', component: EventDetails },
       { path: ':id/edit', component: EventEdit, canActivate: [EventOwnerGuard] },
     ],

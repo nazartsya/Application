@@ -39,4 +39,8 @@ export class EventsService {
   leaveEvent(eventId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/${eventId}/leave`, {});
   }
+
+  getMyEvents(): Observable<EventItem[]> {
+    return this.http.get<EventItem[]>(`${environment.apiUrl}/users/me/events`);
+  }
 }
