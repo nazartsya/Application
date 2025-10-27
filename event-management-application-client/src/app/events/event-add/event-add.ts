@@ -38,7 +38,7 @@ export class EventAdd {
 
   onSubmit() {
     if (this.form.valid) {
-      const { date, time, ...rest } = this.form.value;
+      const { date, time, visibility, ...rest } = this.form.value;
 
       const dateTime = new Date(`${date}T${time}`);
       const now = new Date();
@@ -47,7 +47,11 @@ export class EventAdd {
         return;
       }
 
-      const formValue = { ...rest, date: dateTime.toISOString() };
+      const formValue = {
+        ...rest,
+        isVisible: visibility === 'public',
+        date: dateTime.toISOString(),
+      };
 
       this.events.addEvent(formValue).subscribe((createdEvent) => {
         this.router.navigate(['/events', createdEvent.id]);

@@ -39,6 +39,13 @@ export class Register {
       this.form.markAllAsTouched();
       return;
     }
-    this.auth.register(this.form.getRawValue()).subscribe();
+    this.auth.register(this.form.getRawValue()).subscribe({
+      next: () => {},
+      error: (err) => {
+        const errorMessage =
+          err?.error?.detail || err?.error?.title || 'Registration failed. Please try again.';
+        alert(errorMessage);
+      },
+    });
   }
 }
