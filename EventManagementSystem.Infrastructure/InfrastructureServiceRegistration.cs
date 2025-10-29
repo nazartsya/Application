@@ -26,9 +26,11 @@ public static class InfrastructureServiceRegistration
 
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ITagService, TagService>();
 
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 

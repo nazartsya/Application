@@ -24,6 +24,11 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.Property(e => e.IsVisible)
             .HasDefaultValue(true);
 
+        builder
+            .HasMany(e => e.Tags)
+            .WithMany(t => t.Events)
+            .UsingEntity(j => j.ToTable("EventTags"));
+
         builder.HasData(
             new Event
             {
