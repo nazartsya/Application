@@ -21,11 +21,11 @@ public class EventsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
+    public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents([FromQuery] string[]? tags)
     {
         var userId = UserHelper.GetUserId(User);
 
-        return Ok(await _service.GetEventsAsync(userId));
+        return Ok(await _service.GetEventsAsync(userId, tags));
     }
 
     [HttpGet("{eventId}", Name = "GetEvent")]

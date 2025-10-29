@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { EventsService } from '../events.service';
+import { Tag } from '../model/tag';
+import { minMaxSelectedArray } from '../validations/min-max-selected-array';
 
 @Component({
   selector: 'app-event-add',
@@ -10,10 +12,12 @@ import { EventsService } from '../events.service';
   templateUrl: './event-add.html',
   styleUrl: './event-add.css',
 })
-export class EventAdd {
+export class EventAdd implements OnInit {
   private fb = inject(FormBuilder);
   private events = inject(EventsService);
   private router = inject(Router);
+
+  availableTags: Tag[] = [];
 
   form = this.fb.nonNullable.group({
     title: ['', Validators.required],
@@ -23,7 +27,32 @@ export class EventAdd {
     location: ['', Validators.required],
     capacity: [undefined as number | undefined, Validators.min(1)],
     visibility: ['public', Validators.required],
+    tags: this.fb.array<Tag>([], minMaxSelectedArray(1, 5)),
   });
+
+  ngOnInit() {
+    this.events.getTags().subscribe((tags) => {
+      this.availableTags = tags;
+    });
+  }
+
+  get tagsFormArray(): FormArray {
+    return this.form.get('tags') as FormArray;
+  }
+
+  toggleTag(tag: Tag) {
+    const index = this.tagsFormArray.value.findIndex((t: Tag) => t.id === tag.id);
+    if (index > -1) {
+      this.tagsFormArray.removeAt(index);
+    } else {
+      this.tagsFormArray.push(this.fb.control(tag));
+    }
+    this.tagsFormArray.markAsTouched();
+  }
+
+  isTagSelected(tag: Tag): boolean {
+    return this.tagsFormArray.value.some((t: Tag) => t.id === tag.id);
+  }
 
   isInvalid(controlName: string, errorType?: string): boolean {
     const control = this.form.get(controlName);
@@ -51,6 +80,7 @@ export class EventAdd {
         ...rest,
         isVisible: visibility === 'public',
         date: dateTime.toISOString(),
+        tags: this.tagsFormArray.value.map((t: Tag) => ({ name: t.name })),
       };
 
       this.events.addEvent(formValue).subscribe((createdEvent) => {

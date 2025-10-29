@@ -3,6 +3,7 @@ using System;
 using EventManagementSystem.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EventManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251029121705_AddTags")]
+    partial class AddTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,8 +207,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         {
                             Id = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890aa"),
                             Capacity = 150,
-                            CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
-                            CreatedDate = new DateTime(2025, 10, 31, 9, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2025, 10, 31, 9, 0, 0, 0, DateTimeKind.Utc),
                             Description = "A modern tech meetup",
                             IsVisible = true,
@@ -216,8 +218,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         {
                             Id = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ab"),
                             Capacity = 1000,
-                            CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
-                            CreatedDate = new DateTime(2025, 10, 31, 9, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2025, 11, 3, 18, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual open-air music fest",
                             IsVisible = true,
@@ -228,8 +229,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         {
                             Id = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ac"),
                             Capacity = 50,
-                            CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
-                            CreatedDate = new DateTime(2025, 11, 6, 14, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2025, 11, 6, 14, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Pitch your startup ideas",
                             IsVisible = true,
@@ -240,8 +240,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         {
                             Id = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ad"),
                             Capacity = 200,
-                            CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
-                            CreatedDate = new DateTime(2025, 11, 9, 11, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2025, 11, 9, 11, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Local artists showcase",
                             IsVisible = false,
@@ -252,8 +251,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         {
                             Id = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ae"),
                             Capacity = 30,
-                            CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
-                            CreatedDate = new DateTime(2025, 11, 12, 16, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Date = new DateTime(2025, 11, 12, 16, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Learn to cook like a chef",
                             IsVisible = true,
@@ -348,7 +346,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EventTags", b =>
+            modelBuilder.Entity("EventTag", b =>
                 {
                     b.Property<Guid>("EventsId")
                         .HasColumnType("uuid");
@@ -360,34 +358,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("EventTags");
-
-                    b.HasData(
-                        new
-                        {
-                            EventsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890aa"),
-                            TagsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ba")
-                        },
-                        new
-                        {
-                            EventsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ab"),
-                            TagsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890bb")
-                        },
-                        new
-                        {
-                            EventsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ac"),
-                            TagsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890bc")
-                        },
-                        new
-                        {
-                            EventsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ad"),
-                            TagsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890bc")
-                        },
-                        new
-                        {
-                            EventsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890ae"),
-                            TagsId = new Guid("b0a0e3f2-46e9-4dc8-83f3-1234567890bc")
-                        });
+                    b.ToTable("EventTags", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -539,7 +510,7 @@ namespace EventManagementSystem.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EventTags", b =>
+            modelBuilder.Entity("EventTag", b =>
                 {
                     b.HasOne("EventManagementSystem.Domain.Entities.Event", null)
                         .WithMany()
