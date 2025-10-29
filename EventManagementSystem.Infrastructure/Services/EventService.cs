@@ -35,9 +35,9 @@ public class EventService : IEventService
             ?? throw new ArgumentNullException(nameof(loggedInUserService));
     }
 
-    public async Task<IEnumerable<EventDto>> GetEventsAsync(Guid? userId)
+    public async Task<IEnumerable<EventDto>> GetEventsAsync(Guid? userId, IEnumerable<string>? tagNames = null)
     {
-        var events = await _repository.GetEventsAsync();
+        var events = await _repository.GetEventsAsync(tagNames);
 
         var result = _mapper.Map<IEnumerable<EventDto>>(events);
 

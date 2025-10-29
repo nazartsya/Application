@@ -1,4 +1,12 @@
 <h1>Discover Events</h1>
+<div class="tags-filter">
+  @for (tag of availableTags; track tag.id){
+  <label class="tag-checkbox" [class.selected]="isTagSelected(tag)">
+    <input type="checkbox" (change)="toggleFilterTag(tag)" />
+    {{ tag.name }}
+  </label>
+  }
+</div>
 @if (events$ | async; as events) {
 <div class="events">
   @for (event of events; track event.id) {
@@ -37,4 +45,6 @@
   </div>
   }
 </div>
-}
+@if (!events || events.length === 0) {
+<div class="no-events">No events match the selected tags.</div>
+} }

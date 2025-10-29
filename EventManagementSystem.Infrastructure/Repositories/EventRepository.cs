@@ -15,12 +15,19 @@ public class EventRepository : IEventRepository
         _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
     }
 
-    public async Task<IEnumerable<Event>> GetEventsAsync()
+    public async Task<IEnumerable<Event>> GetEventsAsync(IEnumerable<string>? tagNames = null)
     {
-        return await _context.Events
+        var query = _context.Events
             .Include(e => e.Participants)
             .Include(e => e.Tags)
-            .ToListAsync();
+            .AsQueryable();
+
+        if (tagNames != null && tagNames.Any())
+        {
+            query = query.Where(e => e.Tags.Any(t => tagNames.Contains(t.Name)));
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<Event?> GetEventAsync(Guid eventId)

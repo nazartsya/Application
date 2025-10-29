@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EventItem } from './model/event-item';
@@ -13,8 +13,12 @@ export class EventsService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/events`;
 
-  getEvents(): Observable<EventItem[]> {
-    return this.http.get<EventItem[]>(this.apiUrl);
+  getEvents(tagNames: string[] = []): Observable<EventItem[]> {
+    let params = new HttpParams();
+    if (tagNames.length) {
+      tagNames.forEach((t) => (params = params.append('tags', t)));
+    }
+    return this.http.get<EventItem[]>(this.apiUrl, { params });
   }
 
   getEvent(id: string): Observable<EventItemDetail> {
