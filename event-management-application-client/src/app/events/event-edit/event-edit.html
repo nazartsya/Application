@@ -63,6 +63,22 @@
       </div>
     </div>
 
+    <label>Tags *</label>
+    <div class="tags-container">
+      @for (tag of availableTags; track tag.id) {
+      <label class="tag-checkbox" [class.selected]="isTagSelected(tag)">
+        <input type="checkbox" (change)="toggleTag(tag)" />
+        {{ tag.name }}
+      </label>
+      }
+    </div>
+    @if (tagsFormArray.errors && (tagsFormArray.touched || tagsFormArray.dirty)) { @if
+    (tagsFormArray.errors['minSelected']) {
+    <div class="error">Please select at least 1 tag.</div>
+    } @if (tagsFormArray.errors['maxSelected']) {
+    <div class="error">You can select a maximum of 5 tags.</div>
+    } }
+
     <div class="buttons">
       <button type="button" routerLink="/events/{{ eventId }}" class="cancel-btn">Cancel</button>
       <button type="submit" [disabled]="form.invalid" class="create-btn">Save Changes</button>

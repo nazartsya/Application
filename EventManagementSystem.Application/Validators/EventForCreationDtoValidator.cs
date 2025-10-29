@@ -27,5 +27,14 @@ public class EventForCreationDtoValidator : AbstractValidator<EventForCreationDt
         RuleFor(e => e.Capacity)
             .GreaterThan(0).When(e => e.Capacity.HasValue)
             .WithMessage("Capacity must be greater than 0 when specified.");
+
+        RuleFor(e => e.Tags)
+            .NotNull().WithMessage("Tags are required.")
+            .Must(tags => tags.Count >= 1).WithMessage("At least 1 tag is required.")
+            .Must(tags => tags.Count <= 5).WithMessage("Maximum 5 tags allowed per event.");
+
+        RuleFor(e => e.Tags)
+            .Must(tags => tags.Select(t => t.Name.ToLower()).Distinct().Count() == tags.Count)
+            .WithMessage("Duplicate tags are not allowed.");
     }
 }

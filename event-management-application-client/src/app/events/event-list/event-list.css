@@ -62,3 +62,54 @@ h1 {
   cursor: pointer;
   font-size: 1em;
 }
+
+.event-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  background-color: #e0f0ff;
+  color: #007bff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tags-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: #e0f0ff;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.85em;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tag-checkbox input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.tag-checkbox.selected {
+  background-color: #007bff;
+  color: white;
+}

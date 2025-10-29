@@ -11,6 +11,13 @@
       <p><span>Capacity:</span> {{ e.capacity }}</p>
       }
     </div>
+    @if (e.tags?.length) {
+    <div class="event-tags">
+      @for (tag of e.tags; track tag.id) {
+      <span class="tag">{{ tag.name }}</span>
+      }
+    </div>
+    }
     <p>Participants ({{ e.participantsCount }}):</p>
     <ul class="participants-list">
       @for (p of e.participants; track p.userId){

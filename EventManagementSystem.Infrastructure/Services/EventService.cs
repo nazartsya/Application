@@ -35,9 +35,9 @@ public class EventService : IEventService
             ?? throw new ArgumentNullException(nameof(loggedInUserService));
     }
 
-    public async Task<IEnumerable<EventDto>> GetEventsAsync(Guid? userId)
+    public async Task<IEnumerable<EventDto>> GetEventsAsync(Guid? userId, IEnumerable<string>? tagNames = null)
     {
-        var events = await _repository.GetEventsAsync();
+        var events = await _repository.GetEventsAsync(tagNames);
 
         var result = _mapper.Map<IEnumerable<EventDto>>(events);
 
@@ -68,7 +68,7 @@ public class EventService : IEventService
         await ValidationHelper.ThrowIfInvalidAsync(dto, _serviceProvider);
 
         var entity = _mapper.Map<Event>(dto);
-        _repository.AddEvent(entity);
+        await _repository.AddEvent(entity);
         await _repository.SaveAsync();
 
         return _mapper.Map<EventDto>(entity);
@@ -98,7 +98,7 @@ public class EventService : IEventService
         await ValidationHelper.ThrowIfInvalidAsync(dto, _serviceProvider);
 
         _mapper.Map(dto, entity);
-        _repository.UpdateEvent(entity);
+        await _repository.UpdateEvent(entity);
         await _repository.SaveAsync();
     }
 

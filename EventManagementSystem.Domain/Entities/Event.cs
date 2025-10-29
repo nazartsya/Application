@@ -12,4 +12,5 @@ public class Event : AuditableEntity
     public int? Capacity { get; set; }
     public bool IsVisible { get; set; }
     public ICollection<Participant> Participants { get; set; } = [];
+    public ICollection<Tag> Tags { get; set; } = [];
 }
