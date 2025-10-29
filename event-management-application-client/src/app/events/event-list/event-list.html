@@ -20,6 +20,13 @@
       </span>
       }
     </div>
+    @if (event.tags?.length) {
+    <div class="event-tags">
+      @for (tag of event.tags; track tag.id) {
+      <span class="tag">{{ tag.name }}</span>
+      }
+    </div>
+    }
     <div class="event-buttons">
       @if (!event.isJoined) {
       <button (click)="join(event)">Join</button>

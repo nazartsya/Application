@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { EventItem } from './model/event-item';
 import { EventItemDetail } from './model/event-item-detail';
 import { environment } from '../../environments/environment';
+import { Tag } from './model/tag';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +43,9 @@ export class EventsService {
 
   getMyEvents(): Observable<EventItem[]> {
     return this.http.get<EventItem[]>(`${environment.apiUrl}/users/me/events`);
+  }
+
+  getTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${environment.apiUrl}/tags`);
   }
 }

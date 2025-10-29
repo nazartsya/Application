@@ -10,5 +10,6 @@ public interface ITagRepository
     void UpdateTag(Tag tag);
     void DeleteTag(Tag tag);
     Task<bool> TagNameExistsAsync(string name);
+    Task<List<Tag>> GetTagsByNamesAsync(IEnumerable<string> names);
     Task<bool> SaveAsync();
 }

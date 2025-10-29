@@ -1,3 +1,5 @@
+import { Tag } from './tag';
+
 export interface EventItem {
   id: string;
   title: string;
@@ -9,4 +11,5 @@ export interface EventItem {
   isJoined?: boolean;
   participantsCount?: number;
   createdBy?: string;
+  tags?: Tag[];
 }

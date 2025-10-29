@@ -55,6 +55,14 @@ public class TagRepository : ITagRepository
         return await _context.Tags.AnyAsync(t => t.Name.ToLower() == name.ToLower());
     }
 
+    public async Task<List<Tag>> GetTagsByNamesAsync(IEnumerable<string> names)
+    {
+        var loweredNames = names.Select(n => n.ToLower()).ToList();
+        return await _context.Tags
+            .Where(t => loweredNames.Contains(t.Name.ToLower()))
+            .ToListAsync();
+    }
+
     public async Task<bool> SaveAsync()
     {
         return await _context.SaveChangesAsync() >= 0;

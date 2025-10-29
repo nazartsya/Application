@@ -24,11 +24,6 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.Property(e => e.IsVisible)
             .HasDefaultValue(true);
 
-        builder
-            .HasMany(e => e.Tags)
-            .WithMany(t => t.Events)
-            .UsingEntity(j => j.ToTable("EventTags"));
-
         builder.HasData(
             new Event
             {
@@ -38,7 +33,9 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                 Location = "Kyiv",
                 Date = new DateTime(2025, 10, 31, 9, 0, 0, DateTimeKind.Utc),
                 Capacity = 150,
-                IsVisible = true
+                IsVisible = true,
+                CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
+                CreatedDate = new DateTime(2025, 10, 31, 9, 0, 0, DateTimeKind.Utc),
             },
             new Event
             {
@@ -48,7 +45,9 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                 Location = "Lviv",
                 Date = new DateTime(2025, 11, 03, 18, 0, 0, DateTimeKind.Utc),
                 Capacity = 1000,
-                IsVisible = true
+                IsVisible = true,
+                CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
+                CreatedDate = new DateTime(2025, 10, 31, 9, 0, 0, DateTimeKind.Utc),
             },
             new Event
             {
@@ -58,7 +57,9 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                 Location = "Odessa",
                 Date = new DateTime(2025, 11, 6, 14, 0, 0, DateTimeKind.Utc),
                 Capacity = 50,
-                IsVisible = true
+                IsVisible = true,
+                CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
+                CreatedDate = new DateTime(2025, 11, 6, 14, 0, 0, DateTimeKind.Utc),
             },
             new Event
             {
@@ -68,7 +69,9 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                 Location = "Kharkiv",
                 Date = new DateTime(2025, 11, 9, 11, 0, 0, DateTimeKind.Utc),
                 Capacity = 200,
-                IsVisible = false
+                IsVisible = false,
+                CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
+                CreatedDate = new DateTime(2025, 11, 9, 11, 0, 0, DateTimeKind.Utc),
             },
             new Event
             {
@@ -78,8 +81,30 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                 Location = "Dnipro",
                 Date = new DateTime(2025, 11, 12, 16, 0, 0, DateTimeKind.Utc),
                 Capacity = 30,
-                IsVisible = true
+                IsVisible = true,
+                CreatedBy = "b0a0e3f2-46e9-4dc8-83f3-1234567890af",
+                CreatedDate = new DateTime(2025, 11, 12, 16, 0, 0, DateTimeKind.Utc)
             }
         );
+
+        builder
+            .HasMany(e => e.Tags)
+            .WithMany(t => t.Events)
+            .UsingEntity<Dictionary<string, object>>(
+                "EventTags",
+                j => j.HasOne<Tag>().WithMany().HasForeignKey("TagsId"),
+                j => j.HasOne<Event>().WithMany().HasForeignKey("EventsId"),
+                j =>
+                {
+                    j.HasKey("EventsId", "TagsId");
+                    j.HasData(
+                        new { EventsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890aa"), TagsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890ba") },
+                        new { EventsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890ab"), TagsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890bb") },
+                        new { EventsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890ac"), TagsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890bc") },
+                        new { EventsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890ad"), TagsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890bc") },
+                        new { EventsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890ae"), TagsId = Guid.Parse("b0a0e3f2-46e9-4dc8-83f3-1234567890bc") }
+                    );
+                }
+            );
     }
 }

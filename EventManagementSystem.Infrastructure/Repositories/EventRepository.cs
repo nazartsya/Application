@@ -7,16 +7,19 @@ namespace EventManagementSystem.Infrastructure.Repositories;
 public class EventRepository : IEventRepository
 {
     private readonly ApplicationDbContext _context;
+    private readonly ITagRepository _tagRepository;
 
-    public EventRepository(ApplicationDbContext context)
+    public EventRepository(ApplicationDbContext context, ITagRepository tagRepository)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
     }
 
     public async Task<IEnumerable<Event>> GetEventsAsync()
     {
         return await _context.Events
             .Include(e => e.Participants)
+            .Include(e => e.Tags)
             .ToListAsync();
     }
 
@@ -30,6 +33,7 @@ public class EventRepository : IEventRepository
         return await _context.Events
             .Include(e => e.Participants)
                 .ThenInclude(p => p.User)
+            .Include(e => e.Tags)
             .FirstOrDefaultAsync(e => e.Id == eventId);
     }
 
@@ -45,17 +49,20 @@ public class EventRepository : IEventRepository
             .FirstOrDefaultAsync(e => e.Id == eventId);
     }
 
-    public void AddEvent(Event @event)
+    public async Task AddEvent(Event @event)
     {
         ArgumentNullException.ThrowIfNull(@event);
 
         @event.Id = Guid.NewGuid();
 
+        await HandleTagsAsync(@event);
+
         _context.Events.Add(@event);
     }
 
-    public void UpdateEvent(Event @event)
+    public async Task UpdateEvent(Event @event)
     {
+        await HandleTagsAsync(@event);
     }
 
     public void DeleteEvent(Event @event)
@@ -100,5 +107,23 @@ public class EventRepository : IEventRepository
     public async Task<bool> SaveAsync()
     {
         return await _context.SaveChangesAsync() >= 0;
+    }
+
+    private async Task HandleTagsAsync(Event @event)
+    {
+        var tagNames = @event.Tags
+            .Select(t => t.Name.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var existingTags = await _tagRepository.GetTagsByNamesAsync(tagNames);
+
+        var newTagNames = tagNames
+            .Except(existingTags.Select(t => t.Name), StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var newTags = newTagNames.Select(n => new Tag { Id = Guid.NewGuid(), Name = n }).ToList();
+
+        @event.Tags = existingTags.Concat(newTags).ToList();
     }
 }

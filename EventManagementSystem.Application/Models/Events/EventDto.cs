@@ -1,4 +1,6 @@
-﻿namespace EventManagementSystem.Application.Models.Events;
+﻿using EventManagementSystem.Application.Models.Tags;
+
+namespace EventManagementSystem.Application.Models.Events;
 
 public class EventDto
 {
@@ -13,4 +15,5 @@ public class EventDto
     public int ParticipantsCount { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
+    public ICollection<TagDto> Tags { get; set; } = [];
 }
