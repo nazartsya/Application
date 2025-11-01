@@ -1,0 +1,17 @@
+<div class="assistant-container">
+  <h3>AI Assistant</h3>
+
+  <textarea [(ngModel)]="question" placeholder="Ask about your events..."></textarea>
+
+  <div class="controls">
+    <button class="btn-primary" (click)="ask()" [disabled]="loading || !question.trim()">
+      {{ loading ? 'Thinking...' : 'Ask' }}
+    </button>
+  </div>
+
+  @if (answer) {
+    <div class="answer">
+      {{ answer }}
+    </div>
+  }
+</div>

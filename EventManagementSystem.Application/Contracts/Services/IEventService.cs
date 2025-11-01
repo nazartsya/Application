@@ -5,7 +5,7 @@ namespace EventManagementSystem.Application.Contracts.Services;
 
 public interface IEventService
 {
-    Task<IEnumerable<EventDto>> GetEventsAsync(Guid? userId, IEnumerable<string>? tagNames);
+    Task<IEnumerable<EventDetailsDto>> GetEventsAsync(Guid? userId, IEnumerable<string>? tagNames = null);
     Task<EventDetailsDto> GetEventAsync(Guid eventId, Guid userId);
     Task<EventDto> CreateEventAsync(EventForCreationDto dto);
     Task PartiallyUpdateEventAsync(Guid eventId, JsonPatchDocument<EventForUpdateDto> patchDoc);
