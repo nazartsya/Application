@@ -24,6 +24,14 @@
     >
       My Events
     </button>
+    <button
+      class="btn-primary"
+      routerLink="/ai"
+      [routerLinkActive]="['btn-outline']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      AI Assistant
+    </button>
     <button class="btn-primary" (click)="logout()">Logout</button>
   </div>
 </header>

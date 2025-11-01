@@ -32,6 +32,12 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITagService, TagService>();
 
+        services.AddScoped<IAssistantService, AssistantService>();
+        services.AddHttpClient<IAiClient, GroqAiClient>(client =>
+        {
+            client.BaseAddress = new Uri("https://api.groq.com/openai/v1/");
+        });
+
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
         services.AddAuthentication(options =>

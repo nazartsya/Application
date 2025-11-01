@@ -9,6 +9,7 @@ import { EventAdd } from './events/event-add/event-add';
 import { EventEdit } from './events/event-edit/event-edit';
 import { EventOwnerGuard } from './events/event-owner.guard';
 import { MyEvents } from './events/my-events/my-events';
+import { Assistant } from './assistant/assistant/assistant';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,5 +26,6 @@ export const routes: Routes = [
       { path: ':id/edit', component: EventEdit, canActivate: [EventOwnerGuard] },
     ],
   },
+  { path: 'ai', component: Assistant, canActivate: [authGuard] },
   { path: '**', redirectTo: 'login' },
 ];

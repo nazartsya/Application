@@ -19,6 +19,7 @@ public class EventRepository : IEventRepository
     {
         var query = _context.Events
             .Include(e => e.Participants)
+                .ThenInclude(p => p.User)
             .Include(e => e.Tags)
             .AsQueryable();
 
